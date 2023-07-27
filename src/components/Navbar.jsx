@@ -1,29 +1,42 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose, AiFillTag } from 'react-icons/ai';
-import { BsFillCartFill,BsFillSaveFill } from 'react-icons/bs';
-import {TbTruckDelivery} from 'react-icons/tb'
-import {FaUserFriends, FaWallet} from 'react-icons/fa'
-import {MdFavorite, MdHelp} from 'react-icons/md'
+import { BsFillCartFill, BsFillSaveFill } from 'react-icons/bs';
+import { TbTruckDelivery } from 'react-icons/tb';
+import { FaUserFriends, FaWallet } from 'react-icons/fa';
+import { MdFavorite, MdHelp } from 'react-icons/md';
 
 const Navbar = () => {
-const [nav, setNav] = useState(false)
+  const [nav, setNav] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState('Delivery'); // Track the selected option
+
+  // Toggle between 'Delivery' and 'Pickup' options
+  const toggleDeliveryOption = () => {
+    setDeliveryOption(prevOption => (prevOption === 'Delivery' ? 'Pickup' : 'Delivery'));
+  };
 
   return (
     <div className='max-w-[1640px] mx-auto flex justify-between items-center p-4'>
       {/* Left side */}
       <div className='flex items-center'>
-        <div onClick={()=> setNav(!nav)} className='cursor-pointer'>
+        <div onClick={() => setNav(!nav)} className='cursor-pointer'>
           <AiOutlineMenu size={30} />
         </div>
         <h1 className='text-2xl sm:text-3xl lg:text-4xl px-2'>
           Best <span className='font-bold'>Eats</span>
         </h1>
-        <div className='hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]'>
-          <p className='bg-black text-white rounded-full p-2'>Delivery</p>
-          <p className='p-2'>Pickup</p>
+        <div
+          className={`hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px] ${
+            deliveryOption === 'Delivery' ? 'bg-black text-white' : 'bg-gray-200 text-black'
+          }`}
+        >
+          <p className='rounded-full p-2' onClick={toggleDeliveryOption}>
+            Delivery
+          </p>
+          <p className='rounded-full p-2' onClick={toggleDeliveryOption}>
+            Pickup
+          </p>
         </div>
       </div>
-
       {/* Search Input */}
       <div className='bg-gray-200 rounded-full flex items-center px-2 w-[200px] sm:w-[400px] lg:w-[500px]'>
         <AiOutlineSearch size={25} />
